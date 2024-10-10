@@ -5,10 +5,10 @@ extern IMAGE Player_shadow;
 
 Player::Player() {
 	loadimage(&Player_shadow, _T("assert/shadow_player.png"), SHADOW_WIDTH);
-	player_relax_left = new Animation(_T("assert/relaxleft%d.png"), 40, 45);
-	player_relax_right = new Animation(_T("assert/relax%d.jpg"), 39, 45);
-	player_move_left = new Animation(_T("assert/moveleft%d.png"), 10, 45);
-	player_move_right = new Animation(_T("assert/MOVE%d.jpg"), 10, 45);
+	player_relax_left = new Animation(_T("assert/Player/Eyjafalla/relaxleft%d.png"), 40, 45);
+	player_relax_right = new Animation(_T("assert/Player/Eyjafalla/relax%d.jpg"), 39, 45);
+	player_move_left = new Animation(_T("assert/Player/Eyjafalla/moveleft%d.png"), 10, 45);
+	player_move_right = new Animation(_T("assert/Player/Eyjafalla/MOVE%d.jpg"), 10, 45);
 }
 
 Player::~Player() {
