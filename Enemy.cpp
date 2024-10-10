@@ -11,8 +11,8 @@ Enemy::Enemy()
 {
 	std::mt19937 myrand(clock());
 	loadimage(&Enemy_shadow, _T("assert/shadow_player.png"), SHADOW_WIDTH);
-	Enemy_move_left = new Animation(_T("assert/Enemyleft%d.png"),7,45);
-	Enemy_move_right = new Animation(_T("assert/Enemyright%d.png"), 7, 45);
+	Enemy_move_left = new Animation(_T("assert/Enemy/soldies/Enemyleft%d.png"),7,45);
+	Enemy_move_right = new Animation(_T("assert/Enemy/soldies/Enemyright%d.png"), 7, 45);
 
 	enum SpawnEdge
 	{
@@ -76,7 +76,7 @@ void Enemy::Move(const Player& player)
 
 void EnemySpawn()
 {
-	//ÄÜ²»ÄÜÊµÏÖÊ±¼äÔ½¾ÃÄÑ¶ÈÔ½¸ß?
+	//èƒ½ä¸èƒ½å®žçŽ°æ—¶é—´è¶Šä¹…éš¾åº¦è¶Šé«˜?
 	static int num = 0;
 	static int counter = 100;
 	if ((++num) % counter == 0)
@@ -127,11 +127,11 @@ bool Enemy::CheckBulletCollsion(const Bullet &bullet)
 
 bool Enemy::CheckPlayerCollsion(const Player& player)
 {
-	//ÈËÎï¿í´ó¸ÅÎª200£¬¸ß´ó¸ÅÎª300£¬Í¼Æ¬¿íºÍ¸ß¶¼Îª1000
+	//äººç‰©å®½å¤§æ¦‚ä¸º200ï¼Œé«˜å¤§æ¦‚ä¸º300ï¼Œå›¾ç‰‡å®½å’Œé«˜éƒ½ä¸º1000
 	POINT check_postion = { Enemy_pos.x +  Enemy_WIDTH/2 , Enemy_pos.y + Enemy_HEIGHT/2 };
 	
 
-	//µÐÈË¿í´ó¸ÅÎª100£¬¸ß´ó¸ÅÎª200
+	//æ•Œäººå®½å¤§æ¦‚ä¸º100ï¼Œé«˜å¤§æ¦‚ä¸º200
 	if (check_postion.x >= player.Player_pos.x + 70 && check_postion.x <= player.Player_pos.x + 100)
 	{
 		if (check_postion.y >= player.Player_pos.y + 50 && check_postion.y <= player.Player_pos.y + 140)
