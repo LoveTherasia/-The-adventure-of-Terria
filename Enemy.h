@@ -1,60 +1,169 @@
 #pragma once
 
-#ifndef _ENEMY_H_
-#define _ENEMY_H_
-
-
 #include"Constant.h"
 #include"Animation.h"
 #include"Player.h"
 #include"Bullet.h"
+#include"vector"
 
 
 class Enemy {
+public:
+	int Enemy_speed;
+	int Enemy_WIDTH;
+	int Enemy_HEIGHT;
+	int SHADOW_WIDTH ;
+	int eps ;//å—åˆ°ä¼¤å®³åçš„æ— æ•Œå¸§
 
-private:
-	const int Enemy_speed = 2;
-	const int Enemy_WIDTH = 200;
-	const int Enemy_HEIGHT = 200;
-	const int SHADOW_WIDTH = 70;
-	
+	int MAX_HEALTH;
+	int last = 0;//æ ‡è®°ä¸‹ä¸€æ¬¡å—åˆ°ä¼¤å®³çš„æ—¶å€™
+	int Enemy_Health;
+
 	bool move_up = false;
 	bool move_down = false;
 	bool move_left = false;
 	bool move_right = false;
 	bool is_move = false;
+	int HurtTime = 0;
 
 	IMAGE Enemy_shadow;
 	Animation* Enemy_move_left;
 	Animation* Enemy_move_right;
 
+public:
+	enum Status
+	{
+		Clear = 0,
+		GetHurt
+	};
+
+	Status status = Status::Clear;
 
 public:
 	POINT Enemy_pos = { 0,0 };
 
 	bool alive = true;
 
-	Enemy();
 
-	~Enemy();
+	virtual void Move(const Player &player);//å¤„ç†æ•°æ®
 
-	void EnemySpawn();
+	virtual void Draw();//è¾“å‡ºç”»é¢
 
-	void Move(const Player &player);//´¦ÀíÊı¾İ
+	virtual bool CheckBulletCollsion(const Bullet &bullet);//æ£€æµ‹å½“å‰æ•Œäººæ˜¯å¦è¢«å­å¼¹å‡»ä¸­
 
-	void Draw(int delta);//Êä³ö»­Ãæ
+	virtual bool CheckPlayerCollsion(const Player &player);
 
-	bool CheckBulletCollsion(const Bullet &bullet);//¼ì²âµ±Ç°µĞÈËÊÇ·ñ±»×Óµ¯»÷ÖĞ
+	virtual void Hurt(DWORD HurtTime,int damage);
 
-	bool CheckPlayerCollsion(const Player &player);
+	virtual bool CheckAlive();
 
-	void Hurt();
+	virtual void CheckHurt(DWORD time);
+};
+
+class Solider : public Enemy
+{
+public:
+	Solider();
+
+	~Solider();
+
+	void Move(const Player& player);
+
+	void Draw();
+
+	bool CheckBulletCollsion(const Bullet& bullet);
+
+	bool CheckPlayerCollsion(const Player& player);
+
+	void Hurt(DWORD HurtTime, int damage);
 
 	bool CheckAlive();
+
+	void CheckHurt(DWORD time);
+};
+
+class Airborne : public Enemy
+{
+public:
+	int landingpos = -Enemy_HEIGHT;
+
+	enum StatusStart
+	{
+		Unlanding = 0,
+		Landing
+	};
+
+	StatusStart landingstatus = Unlanding;
+
+public:
+
+	Airborne();
+
+	~Airborne();
+
+	void Move(const Player& player);
+
+	void Draw();
+
+	bool CheckBulletCollsion(const Bullet& bullet);
+
+	bool CheckPlayerCollsion(const Player& player);
+
+	void Hurt(DWORD HurtTime, int damage);
+
+	bool CheckAlive();
+
+	void CheckHurt(DWORD time);
+
+private:
+	Animation* Enemy_Landing;
+};
+
+class Hound : public Enemy
+{
+public:
+
+public:
+	Hound();
+
+	~Hound();
+
+	void Move(const Player& player);
+
+	void Draw();
+
+	bool CheckBulletCollsion(const Bullet& bullet);
+
+	bool CheckPlayerCollsion(const Player& player);
+
+	void Hurt(DWORD HurtTime, int damage);
+
+	bool CheckAlive();
+
+	void CheckHurt(DWORD time);
+};
+
+class Spine : public Enemy
+{
+public:
+	Spine();
+
+	~Spine();
+
+	void Move(const Player& player);
+
+	void Draw();
+
+	bool CheckBulletCollsion(const Bullet& bullet);
+
+	bool CheckPlayerCollsion(const Player& player);
+
+	void Hurt(DWORD HurtTime, int damage);
+
+	bool CheckAlive();
+
+	void CheckHurt(DWORD time);
 };
 
 void EnemySpawn();
-
-
-#endif
 
